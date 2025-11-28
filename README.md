@@ -2,6 +2,12 @@
 
 Um app de organização acadêmica que centraliza tarefas, lembretes e notas, com a visão futura de ser um assistente proativo de IA.
 
+## Documentações
+
+**[Feature Modules](docs/features/modules.md)**
+
+## Guia do ambiente de desenvolvimento
+
 ### Pré-requisitos
 
 - Java JDK 25 instalado (JDK 25 recomendado).
@@ -26,7 +32,7 @@ Um app de organização acadêmica que centraliza tarefas, lembretes e notas, co
      javac -version
      ```
 
-2. Inicie o Docker Desktop
+2. Inicie o Docker Desktop (opcional)
 
    - Abra o Docker Desktop e confirme que está rodando (ícone na barra de tarefas). Se o projeto usar Testcontainers, o Docker precisa estar ativo.
 
