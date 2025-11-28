@@ -2,85 +2,115 @@
 
 Um app de organização acadêmica que centraliza tarefas, lembretes e notas, com a visão futura de ser um assistente proativo de IA.
 
-## Documentações
+## 📚 Documentações
 
-**[Feature Modules](docs/features/modules.md)**
+**[Feature: Modules](docs/features/modules.md)** - Documentação técnica da principal feature do projeto.
 
-## Guia do ambiente de desenvolvimento
+---
 
-### Pré-requisitos
+## 🚀 Guia de Ambiente de Desenvolvimento
 
-- Java JDK 25 instalado (JDK 25 recomendado).
-- Docker Desktop (se você for rodar testes que usam containers).
+Siga os passos abaixo para configurar e rodar o projeto localmente.
 
-### Passos (Windows)
+### 1. Pré-requisitos
 
+- **Java JDK 25:** Essencial para compilar e rodar o projeto.
 
-1. Instale o JDK 25
+  <details>
+  <summary>Clique para ver as instruções de instalação do Java no Windows</summary>
 
-   - Baixe e instale o JDK 25: https://www.oracle.com/java/technologies/downloads/#java25
+  - **Baixe e instale o JDK 25:** [Link de Download da Oracle](https://www.oracle.com/java/technologies/downloads/#java25)
+  - **Configure as variáveis de ambiente:**
+    - Crie uma nova variável de sistema `JAVA_HOME` apontando para o diretório de instalação do JDK (ex: `C:\Program Files\Java\jdk-25`).
+    - Adicione a entrada `%JAVA_HOME%\bin` à variável de sistema `Path`.
+  - **Verifique a instalação** abrindo um novo PowerShell e rodando:
+    ```powershell
+    java -version
+    javac -version
+    ```
+  </details>
 
-   - Após a instalação, configure as variáveis de ambiente do Windows:
+- **Docker Desktop:** Recomendado para subir um banco de dados MongoDB facilmente.
 
-     - `JAVA_HOME` apontando para o diretório do JDK (ex.: `C:\Program Files\Java\jdk-25`).
-     - Adicione `%JAVA_HOME%\bin` ao `Path`.
+### 2. Configuração do Banco de Dados
 
-   - Verifique a instalação no PowerShell:
+A aplicação precisa se conectar a um banco de dados MongoDB. A configuração é feita através de duas variáveis de ambiente:
 
-     ```powershell
-     java -version
-     javac -version
-     ```
+- `MONGO_URI`: A string de conexão do MongoDB.
+- `MONGO_DATABASE`: O nome do banco de dados que será utilizado.
 
-2. Inicie o Docker Desktop (opcional)
+Você tem três opções para configurar seu banco:
 
-   - Abra o Docker Desktop e confirme que está rodando (ícone na barra de tarefas). Se o projeto usar Testcontainers, o Docker precisa estar ativo.
+---
 
-3. Rodar a aplicação (modo desenvolvimento)
+#### Opção 1: Usar Docker (Recomendado)
 
-   - No PowerShell (na raiz do projeto):
+Esta é a forma mais simples e rápida de ter um banco de dados rodando, sem precisar instalar o MongoDB na sua máquina.
 
-     ```powershell
-     .\gradlew.bat bootRun
-     ```
+1.  **Inicie o container do MongoDB:**
+    Na raiz do projeto, execute o comando:
+    ```bash
+    docker-compose up -d
+    ```
+    Isso irá iniciar um container Docker com o MongoDB pronto para uso na porta `27017`.
 
-4. Gerar JAR e executar (opcional)
+2.  **Configure as variáveis de ambiente:**
+    Em seu terminal, exporte as seguintes variáveis:
+    ```bash
+    export MONGO_URI="mongodb://localhost:27017"
+    export MONGO_DATABASE="polaris_local_db"
+    ```
 
-   - Gerar o JAR:
+---
 
-     ```powershell
-     .\gradlew.bat bootJar
-     ```
+#### Opção 2: Usar uma Instância Local do MongoDB
 
-   - Executar o JAR gerado (ex.: `build\libs\polaris-back-end-<versao>.jar`):
+Se você já possui o MongoDB instalado na sua máquina e rodando na porta padrão (`27017`).
 
-     ```powershell
-     java -jar build\libs\*-SNAPSHOT.jar
-     ```
+1.  **Configure as variáveis de ambiente:**
+    ```bash
+    export MONGO_URI="mongodb://localhost:27017"
+    export MONGO_DATABASE="polaris_local_db"
+    ```
 
-5. Rodar testes
+---
 
-   - No PowerShell:
+#### Opção 3: Usar o Ambiente de Desenvolvimento do Atlas
 
-     ```powershell
-     .\gradlew.bat test
-     ```
+Temos um ambiente de desenvolvimento compartilhado no MongoDB Atlas (nuvem).
 
-### Resumo rápido de comandos (Windows)
+1.  **Solicite o acesso:**
+    Entre em contato com um dos mantenedores do projeto para obter a `MONGO_URI` e o `MONGO_DATABASE` do ambiente de desenvolvimento.
 
-```powershell
-# verificar Java
-java -version
-javac -version
+2.  **Configure as variáveis de ambiente:**
+    Após receber as credenciais, configure-as no seu terminal.
+    ```bash
+    export MONGO_URI="mongodb+srv://<user>:<password>@cluster-dev..."
+    export MONGO_DATABASE="polaris_dev"
+    ```
 
-# iniciar Docker Desktop manualmente (via UI)
+### 3. Rodar a Aplicação
 
-# rodar em modo dev
-.\gradlew.bat bootRun
+Com o banco de dados configurado (e o Docker rodando, se for sua escolha), inicie a aplicação:
 
-# gerar JAR
-.\gradlew.bat bootJar
+- **Linux/macOS:**
+  ```bash
+  ./gradlew bootRun
+  ```
+- **Windows (PowerShell):**
+  ```powershell
+  .\gradlew.bat bootRun
+  ```
 
-# rodar testes
-.\gradlew.bat test
-```
+A API estará disponível em `http://localhost:8080`, e o Swagger UI em `http://localhost:8080/swagger-ui.html`.
+
+### 4. Comandos Úteis
+
+- **Rodar os testes:**
+  ```bash
+  ./gradlew test
+  ```
+- **Gerar o JAR da aplicação:**
+  ```bash
+  ./gradlew bootJar
+  ```
