@@ -40,8 +40,13 @@ dependencies {
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
-
+	useJUnitPlatform {
+        
+        if (project.hasProperty('excludeDocker')) {
+            excludeTags 'docker-required'
+        }
+	}
+	
 	testLogging {
         events "passed", "skipped", "failed"
         showStandardStreams = true

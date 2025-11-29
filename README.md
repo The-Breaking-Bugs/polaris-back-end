@@ -106,10 +106,16 @@ A API estará disponível em `http://localhost:8080`, e o Swagger UI em `http://
 
 ### 4. Comandos Úteis
 
-- **Rodar os testes:**
+- **Rodar os testes (Requer Docker):**
   ```bash
   ./gradlew test
   ```
+
+- **Rodar teste sem Docker:**
+  ```bash
+  ./gradlew test -PexcludeDocker
+  ```
+
 - **Gerar o JAR da aplicação:**
   ```bash
   ./gradlew bootJar
