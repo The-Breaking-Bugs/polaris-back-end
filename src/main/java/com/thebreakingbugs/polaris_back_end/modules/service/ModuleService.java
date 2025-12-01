@@ -31,15 +31,12 @@ public class ModuleService {
 
     
     public Module getDetails(String id, String ownerId) {
-        Module module = findByIdOrThrow(id);
-        validateOwnership(module, ownerId);
-        return module;
+        return findOwnedModuleOrThrow(id, ownerId);
     }
 
     
     public Module update(String id, UpdateModuleDTO request, String ownerId) {
-        Module module = findByIdOrThrow(id);
-        validateOwnership(module, ownerId); 
+        Module module = findOwnedModuleOrThrow(id, ownerId);
 
         if (request.name() != null) module.setName(request.name());
         if (request.description() != null) module.setDescription(request.description());
@@ -50,32 +47,27 @@ public class ModuleService {
 
     
     public void toggleArchive(String id, String ownerId) {
-        Module module = findByIdOrThrow(id);
+        Module module = findOwnedModuleOrThrow(id, ownerId);
         
-        validateOwnership(module, ownerId); 
-
         boolean isArchived = Boolean.TRUE.equals(module.getArchived());
         module.setArchived(!isArchived);
-
+        
         moduleRepository.save(module);
     }
 
     
     public void delete(String id, String ownerId) {
-        Module module = findByIdOrThrow(id);
-        validateOwnership(module, ownerId);
-        
+        Module module = findOwnedModuleOrThrow(id, ownerId);
         moduleRepository.delete(module);
     }
 
-    private Module findByIdOrThrow(String id) {
-        return moduleRepository.findById(id)
+    private Module findOwnedModuleOrThrow(String id, String ownerId) {
+        Module module = moduleRepository.findById(id)
                 .orElseThrow(() -> new NoSuchElementException("Module not found"));
-    }
 
-    private void validateOwnership(Module module, String ownerId) {
         if (!module.getOwnerId().equals(ownerId)) {
             throw new SecurityException("User is not the owner of this module");
         }
+        return module;
     }
 }
