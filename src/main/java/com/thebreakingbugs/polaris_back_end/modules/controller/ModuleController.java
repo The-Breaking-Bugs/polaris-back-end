@@ -23,35 +23,38 @@ public class ModuleController {
     @ResponseStatus(HttpStatus.CREATED)
     public Module create(@RequestHeader("X-User-Id") String ownerId, 
                          @RequestBody @Valid ModuleDTO request) {
-        return null; 
+        Module newModule = new Module(request.name(), request.description(), request.color(), ownerId);
+        return moduleService.create(newModule);
     }
 
     @GetMapping
     public List<Module> list(@RequestHeader("X-User-Id") String ownerId) {
-        return null;
+        return moduleService.listActive(ownerId);
     }
 
     @GetMapping("/{id}")
     public Module getDetails(@RequestHeader("X-User-Id") String ownerId, 
                              @PathVariable String id) {
-        return null;
+        return moduleService.getDetails(id, ownerId);
     }
 
     @PutMapping("/{id}")
     public Module update(@RequestHeader("X-User-Id") String ownerId, 
                          @PathVariable String id, 
                          @RequestBody @Valid UpdateModuleDTO request) {
-        return null;
+        return moduleService.update(id, request, ownerId);
     }
 
     @PatchMapping("/{id}/archive")
     public void archive(@RequestHeader("X-User-Id") String ownerId, 
                         @PathVariable String id) {
+        moduleService.toggleArchive(id, ownerId);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@RequestHeader("X-User-Id") String ownerId, 
                        @PathVariable String id) {
+        moduleService.delete(id, ownerId);
     }
 }
