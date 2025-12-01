@@ -26,3 +26,6 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+      env:
+        MONGO_URI: "mongodb://localhost:27017/db_teste_polaris"
+        MONGO_DATABASE: "db_teste_polaris"
