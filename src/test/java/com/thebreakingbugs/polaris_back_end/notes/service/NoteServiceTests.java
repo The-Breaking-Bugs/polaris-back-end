@@ -46,13 +46,13 @@ public class NoteServiceTests {
         // ARRANGE
         Note input = new Note("Note", "Content", null, "user-123");
 
-        // ACT
+        // ACT & ASSERT
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             noteService.create(input);
         });
 
-        // ASSERT
-        Assertions.assertEquals("Module ID is required", exception.getMessage());
+        Assertions.assertEquals("Module ID is required", exception.getMessage());        
+        Mockito.verify(noteRepository, Mockito.never()).save(any());
     }
 
     @Test
@@ -62,12 +62,12 @@ public class NoteServiceTests {
         String longTitle = "A".repeat(101);
         Note input = new Note(longTitle, "Content", "mod-1", "user-123");
 
-        // ACT
+        // ACT & ASSERT
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             noteService.create(input);
         });
         
-        // ASSERT
-        Assertions.assertEquals("Title cannot exceed 100 characters", exception.getMessage());
+        Assertions.assertEquals("Note title exceeds maximum length of 100 characters", exception.getMessage());
+        Mockito.verify(noteRepository, Mockito.never()).save(any());
     }
 }
