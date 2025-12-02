@@ -105,7 +105,7 @@ class TaskServiceTests {
     }
 
     @Test
-    @DisplayName("[BR-001]")
+    @DisplayName("[BR-001] e [FR-007]")
     void shouldGetDetails() {
         Task task = new Task();
         task.setOwnerId(OWNER_ID);
@@ -113,6 +113,7 @@ class TaskServiceTests {
 
         Task result = taskService.getDetails(TASK_ID, OWNER_ID);
         assertNotNull(result);
+        assertEquals(OWNER_ID, result.getOwnerId());
     }
 
     @Test
@@ -157,4 +158,5 @@ class TaskServiceTests {
 
         verify(taskRepository).delete(task);
     }
+
 }
