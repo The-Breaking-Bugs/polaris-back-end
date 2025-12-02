@@ -3,7 +3,7 @@
 **Data de início da feature:** 2025-12-01  
 **Data da última atualização da feature:** 2025-12-01  
 **Autores:** Maria Eduarda Cordeiro  
-**Status:** 🚧 Em Desenvolvimento
+**Status:** ✅ Concluido
 
 ## 🧐 Overview:
 
