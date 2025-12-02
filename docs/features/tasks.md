@@ -1,8 +1,8 @@
 # 📚 Feature: Tasks
 
 **Data de início da feature:** 2025-12-01  
-**Data da última atualização da feature:** 2025-12-01  
-**Autores:** Maria Eduarda Cordeiro  
+**Data da última atualização da feature:** 2025-12-02   
+**Autores:** Maria Eduarda Cordeiro, Ian Barbosa, Danilo Martins de Oliveira, Carlos Eduardo Araujo  
 **Status:** ✅ Concluido
 
 ## 🧐 Overview:
