@@ -8,7 +8,6 @@ import java.util.List;
 public interface TaskRepository extends MongoRepository<Task, String> {
     
     List<Task> findByOwnerIdAndStatusOrderByDueDateAsc(String ownerId, TaskStatus status);
-
     
     List<Task> findByOwnerIdAndStatusOrderByDueDateDesc(String ownerId, TaskStatus status);
 }
