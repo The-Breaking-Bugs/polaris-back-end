@@ -62,9 +62,12 @@ class TaskServiceTests {
         Task task = new Task("Task", "Desc", LocalDateTime.now().plusDays(1), MODULE_ID, OWNER_ID);
         
         Module archivedModule = new Module();
-        archivedModule.setArchived(true); 
+        archivedModule.setId(MODULE_ID);
+        archivedModule.setOwnerId(OWNER_ID); 
+        archivedModule.setArchived(true);
 
         when(moduleRepository.findById(MODULE_ID)).thenReturn(Optional.of(archivedModule));
+
 
         assertThrows(IllegalArgumentException.class, () -> taskService.create(task));
     }
@@ -80,11 +83,11 @@ class TaskServiceTests {
 
     @Test
     @DisplayName("[FR-002]")
-    void shouldListPendingOrdered() {
+    void shouldndingListPeOrdered() {
         when(taskRepository.findByOwnerIdAndStatusOrderByDueDateAsc(OWNER_ID, TaskStatus.PENDING))
             .thenReturn(List.of(new Task()));
 
-        List<Task> result = taskService.listPending(OWNER_ID);
+        List<Task> result = taskService.listByStatus(OWNER_ID, TaskStatus.PENDING);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -97,7 +100,7 @@ class TaskServiceTests {
         when(taskRepository.findByOwnerIdAndStatusOrderByDueDateDesc(OWNER_ID, TaskStatus.COMPLETED))
             .thenReturn(List.of(new Task()));
 
-        List<Task> result = taskService.listHistory(OWNER_ID);
+        List<Task> result = taskService.listByStatus(OWNER_ID, TaskStatus.COMPLETED);
 
         assertNotNull(result);
         assertFalse(result.isEmpty());
@@ -119,7 +122,7 @@ class TaskServiceTests {
     @Test
     @DisplayName("[FR-004]")
     void shouldUpdateTask() {
-        UpdateTaskRequest request = new UpdateTaskRequest("New Title", null, null);
+        UpdateTaskDTO request = new UpdateTaskDTO("New Title", null, null);
         Task existing = new Task();
         existing.setOwnerId(OWNER_ID);
         
@@ -158,5 +161,4 @@ class TaskServiceTests {
 
         verify(taskRepository).delete(task);
     }
-
 }
