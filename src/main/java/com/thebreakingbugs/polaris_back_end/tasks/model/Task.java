@@ -27,5 +27,5 @@ public class Task {
         this.dueDate = dueDate;
         this.moduleId = moduleId;
         this.ownerId = ownerId;
-    }
+    }
 }
