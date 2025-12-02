@@ -39,6 +39,8 @@ O sistema deve permitir o gerenciamento das `tasks` focando na distinção entre
 
 - <a id="fr-006"></a>**[FR-006] Delete Task:** O sistema deve permitir a exclusão permanente de uma tarefa.
 
+- ⁠<a id="fr-007"></a>**[FR-007] Get Task Details:** O sistema deve permitir visualizar os detalhes completos de uma ⁠ Task ⁠ específica pelo seu ID.
+
 ## 📜 3. Business Rules
 
 Regras para garantir a integridade dos prazos e a relação com as matérias.
