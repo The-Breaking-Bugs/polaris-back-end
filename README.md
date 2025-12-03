@@ -6,6 +6,10 @@ Um app de organização acadêmica que centraliza tarefas, lembretes e notas, co
 
 **[Feature: Modules](docs/features/modules.md)** - Documentação técnica da principal feature do projeto.
 
+**[Feature: Tasks](docs/features/tasks.md)* - Documentação técnica da feature Tasks do projeto.
+
+**[Feature: Notes](docs/features/notes.md)* - Documentação técnica da feature Notes do projeto
+
 ---
 
 ## 🚀 Guia de Ambiente de Desenvolvimento
