@@ -60,18 +60,33 @@ Esta é a forma mais simples e rápida de ter um banco de dados rodando, sem pre
 
 2.  **Configure as variáveis de ambiente:**
     Em seu terminal, exporte as seguintes variáveis:
+    
+    - **Windows (PowerShell):**
     ```bash
-    export MONGO_URI="mongodb://localhost:27017"
+    $env:MONGO_URI="mongodb://root:example@localhost:27017/?authSource=admin"
+    $env:MONGO_DATABASE="polaris_local_db"
+    ```
+    
+    - **Linux/macOS:**
+    ```bash
+    export MONGO_URI="mongodb://root:example@localhost:27017/?authSource=admin"
     export MONGO_DATABASE="polaris_local_db"
     ```
 
 ---
 
-#### Opção 2: Usar uma Instância Local do MongoDB
+#### Opção 2: Usar uma Instância Local do MongoDB (instância Default)
 
 Se você já possui o MongoDB instalado na sua máquina e rodando na porta padrão (`27017`).
 
 1.  **Configure as variáveis de ambiente:**
+   
+    - **Windows (PowerShell):**
+    ```bash
+    $env:MONGO_URI="mongodb://localhost:27017"
+    $env:MONGO_DATABASE="polaris_local_db"
+    ```
+    - **Linux/macOS:**
     ```bash
     export MONGO_URI="mongodb://localhost:27017"
     export MONGO_DATABASE="polaris_local_db"
@@ -110,14 +125,9 @@ A API estará disponível em `http://localhost:8080`, e o Swagger UI em `http://
 
 ### 4. Comandos Úteis
 
-- **Rodar os testes (Requer Docker):**
+- **Rodar os testes:**
   ```bash
   ./gradlew test
-  ```
-
-- **Rodar teste sem Docker:**
-  ```bash
-  ./gradlew test -PexcludeDocker
   ```
 
 - **Gerar o JAR da aplicação:**
