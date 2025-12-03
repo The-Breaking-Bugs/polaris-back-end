@@ -1,4 +1,4 @@
-package com.thebreakingbugs.polaris_back_end;
+/*package com.thebreakingbugs.polaris_back_end;
 
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
@@ -15,4 +15,4 @@ class TestcontainersConfiguration {
 		return new MongoDBContainer(DockerImageName.parse("mongo:latest"));
 	}
 
-}
+}*/

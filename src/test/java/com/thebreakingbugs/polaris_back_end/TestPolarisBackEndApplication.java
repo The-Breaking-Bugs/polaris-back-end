@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 public class TestPolarisBackEndApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.from(PolarisBackEndApplication::main).with(TestcontainersConfiguration.class).run(args);
+		SpringApplication.from(PolarisBackEndApplication::main).run(args);
 	}
 
 }
