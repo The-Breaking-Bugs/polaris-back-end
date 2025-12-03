@@ -2,6 +2,17 @@
 
 Um app de organização acadêmica que centraliza tarefas, lembretes e notas, com a visão futura de ser um assistente proativo de IA.
 
+## 👥 Equipe
+
+**[Carlos Eduardo Araujo](https://github.com/caduaraujjo)**  
+**[Danilo Martins de Oliveira](https://github.com/Danilomartinsdeoliveira)**  
+**[Gabriel Lucas Izidorio Costa](https://github.com/g-luci)**  
+**[Gabriel Souza Paes](https://github.com/Gabriel-Paes)**  
+**[Ian Pedro Barbosa de Santana](https://github.com/Ianzinn)**  
+**[Luana de Jesus Amaral](https://github.com/Luana716)**  
+**[Maria Eduarda de Abreu Cordeiro](https://github.com/dudyac)**  
+
+
 ## 📚 Documentações
 
 **[Feature: Modules](docs/features/modules.md)** - Documentação técnica da principal feature do projeto.
