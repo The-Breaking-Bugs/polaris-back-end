@@ -2,8 +2,8 @@
 
 **Data de início da feature:** 2025-12-02  
 **Data da última atualização da feature:** 2025-12-02  
-**Autores:** Gabriel Paes, Gabriel Lucas, Luana Amaral
-**Status:** 🚧 Em Desenvolvimento
+**Autores:** Gabriel Paes, Gabriel Lucas, Luana Amaral  
+**Status:** ✅ Concluido  
 
 ## 🧐 Overview:
 

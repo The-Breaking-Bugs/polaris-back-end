@@ -27,13 +27,7 @@ public class NoteController {
             @RequestBody @Valid CreateNoteDTO createNoteDTO,
             @RequestHeader("X-User-Id") String ownerId
     ) {
-        Note noteToCreate = new Note(
-                createNoteDTO.title(),
-                createNoteDTO.content(),
-                moduleId,
-                ownerId
-        );
-        Note createdNote = noteService.create(noteToCreate);
+        Note createdNote = noteService.create(createNoteDTO, moduleId, ownerId);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNote);
     }
 

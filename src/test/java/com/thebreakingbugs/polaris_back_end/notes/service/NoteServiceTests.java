@@ -1,8 +1,9 @@
 package com.thebreakingbugs.polaris_back_end.notes.service;
 
+import com.thebreakingbugs.polaris_back_end.notes.dto.CreateNoteDTO;
+import com.thebreakingbugs.polaris_back_end.notes.dto.UpdateNoteDTO;
 import com.thebreakingbugs.polaris_back_end.notes.model.Note;
 import com.thebreakingbugs.polaris_back_end.notes.repository.NoteRepository;
-import com.thebreakingbugs.polaris_back_end.notes.dto.UpdateNoteDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,33 +32,34 @@ public class NoteServiceTests {
     @DisplayName("[FR-001]")
     public void shouldCreateNoteSuccessfully() {
         // ARRANGE
-        Note input = new Note("Note", "Content", "mod-1", "user-123");
+        CreateNoteDTO input = new CreateNoteDTO("Note", "Content");
         Note saved = new Note("Note", "Content", "mod-1", "user-123");
         saved.setId("note-1");
-        Mockito.when(noteRepository.save(any(Note.class))).thenReturn(saved);
+
+        when(noteRepository.save(any(Note.class))).thenReturn(saved);
 
         // ACT
-        Note result = noteService.create(input);
+        Note result = noteService.create(input, "mod-1", "user-123");
 
         // ASSERT
         Assertions.assertNotNull(result.getId());
         Assertions.assertEquals("Note", result.getTitle());
-        Mockito.verify(noteRepository, Mockito.times(1)).save(any(Note.class));
+        verify(noteRepository, times(1)).save(any(Note.class));
     }
 
     @Test
     @DisplayName("[BR-001]")
     void shouldThrowExceptionWhenModuleIdIsMissing() {
         // ARRANGE
-        Note input = new Note("Note", "Content", null, "user-123");
+        CreateNoteDTO input = new CreateNoteDTO("Note", "Content");
 
         // ACT & ASSERT
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            noteService.create(input);
+            noteService.create(input, null, "user-123");
         });
 
-        Assertions.assertEquals("Module ID is required", exception.getMessage());        
-        Mockito.verify(noteRepository, Mockito.never()).save(any());
+        Assertions.assertEquals("Module ID is required", exception.getMessage());
+        verify(noteRepository, never()).save(any());
     }
 
     @Test
@@ -65,15 +67,15 @@ public class NoteServiceTests {
     void shouldThrowExceptionWhenTitleIsTooLong() {
         // ARRANGE
         String longTitle = "A".repeat(101);
-        Note input = new Note(longTitle, "Content", "mod-1", "user-123");
+        CreateNoteDTO input = new CreateNoteDTO(longTitle, "Content");
 
         // ACT & ASSERT
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            noteService.create(input);
+            noteService.create(input, "mod-1", "user-123");
         });
-        
+
         Assertions.assertEquals("Note title exceeds maximum length of 100 characters", exception.getMessage());
-        Mockito.verify(noteRepository, Mockito.never()).save(any());
+        verify(noteRepository, never()).save(any());
     }
 
     @Test

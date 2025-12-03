@@ -44,7 +44,7 @@ public class NoteControllerTests {
         Note note = new Note("Title", "Content", MODULE_ID, OWNER_ID);
         note.setId(NOTE_ID);
 
-        when(noteService.create(any(Note.class))).thenReturn(note);
+        when(noteService.create(any(CreateNoteDTO.class), eq(MODULE_ID), eq(OWNER_ID))).thenReturn(note);
 
         mockMvc.perform(post("/modules/{moduleId}/notes", MODULE_ID)
                         .header("X-User-Id", OWNER_ID)
@@ -52,6 +52,8 @@ public class NoteControllerTests {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(NOTE_ID));
+
+        verify(noteService).create(any(CreateNoteDTO.class), eq(MODULE_ID), eq(OWNER_ID));
     }
 
     @Test

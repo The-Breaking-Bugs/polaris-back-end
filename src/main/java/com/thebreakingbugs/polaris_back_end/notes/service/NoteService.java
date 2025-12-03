@@ -1,5 +1,6 @@
 package com.thebreakingbugs.polaris_back_end.notes.service;
 
+import com.thebreakingbugs.polaris_back_end.notes.dto.CreateNoteDTO;
 import com.thebreakingbugs.polaris_back_end.notes.dto.UpdateNoteDTO;
 import com.thebreakingbugs.polaris_back_end.notes.model.Note;
 import com.thebreakingbugs.polaris_back_end.notes.repository.NoteRepository;
@@ -17,14 +18,20 @@ public class NoteService {
         this.noteRepository = noteRepository;
     }
 
-    public Note create(Note note) {
-        if (note.getModuleId() == null || note.getModuleId().trim().isEmpty()) {
+    public Note create(CreateNoteDTO createNoteDTO, String moduleId, String ownerId) {
+        if (moduleId == null || moduleId.trim().isEmpty()) {
             throw new IllegalArgumentException("Module ID is required");
         }
-
-        if (note.getTitle() != null && note.getTitle().length() > MAX_TITLE_LENGTH) {
+        if (createNoteDTO.title() != null && createNoteDTO.title().length() > MAX_TITLE_LENGTH) {
             throw new IllegalArgumentException("Note title exceeds maximum length of " + MAX_TITLE_LENGTH + " characters");
         }
+
+        Note note = new Note(
+            createNoteDTO.title(),
+            createNoteDTO.content(),
+            moduleId,
+            ownerId
+        );
 
         return noteRepository.save(note);
     }
